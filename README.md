@@ -1,3 +1,23 @@
+# Домашнее задание к занятию 5. «Практическое применение Docker» - Иванов Дмитрий (fops-13)
+
+---
+## Задача 0
+1. Убедитесь что у вас НЕ(!) установлен ```docker-compose```, для этого получите следующую ошибку от команды ```docker-compose --version```
+2. Убедитесь что у вас УСТАНОВЛЕН ```docker compose```(без тире) версии не менее v2.24.X, для это выполните команду ```docker compose version```  
+<img src="img/docker_version.png">
+---
+
+
+## Задача 1
+1. Сделайте в своем github пространстве fork репозитория ```https://github.com/netology-code/shvirtd-example-python/blob/main/README.md```.   
+2. Создайте файл с именем ```Dockerfile.python``` для сборки данного проекта(для 3 задания изучите https://docs.docker.com/compose/compose-file/build/ ). Используйте базовый образ ```python:3.9-slim```. Протестируйте корректность сборки. Не забудьте dockerignore. 
+
+<a href="https://github.com/dmlorren/shvirtd-example-python">Ссылка на репозиторий в котором выполнялось ДЗ</a>
+---
+
+
+### README.md по умолчанию
+
 # shvirtd-example-python
 
 Example Flask-application for docker compose training.

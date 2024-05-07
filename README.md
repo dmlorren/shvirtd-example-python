@@ -76,17 +76,17 @@ cd shvirtd-example-python/
 sudo docker compose -f compose.yaml -f proxy.yaml up -d
 ```
 
-<img src="img/yandex_docker1">
-<img src="img/yandex_docker2">
+<img src="img/yandex_docker1.png">
+<img src="img/yandex_docker2.png">
 
 ```
 В данном задании я столкнулся с проблемой перезапуска контейнеров web и db в виртуальной машине в yandex cloud.
 На stackoverflow и других ресурсах gbien, что проблема может заключаться в совместимости ubunty 20.04 и mysql:8 
 Попробовал запустить с mariaDB - всё запустилось.
 ```
-<img src="img/docker_ps">
-<img src="img/check_host">
-<img src="img/mariadb">
+<img src="img/docker_ps.png">
+<img src="img/check_host.png">
+<img src="img/mariadb.png">
 
 ---
 
@@ -109,7 +109,7 @@ sudo snap connect dive:docker-daemon docker:docker-daemon
 ```
 root@ubuntu-2004:/home/dmlorren/docker# dive hashicorp/terraform:latest
 ```
-<img src="img/dive">
+<img src="img/dive.png">
 
 
 3. Сохраняем докер образ на локальную машину с помощью docker save:
@@ -118,7 +118,7 @@ root@ubuntu-2004:/home/dmlorren/docker# docker save hashicorp/terraform:latest -
 ```
 
 4. Через mc захожу в архив, выбираю нужный слой и копирую к себе на локальную машину в директорию home.
-<img src="img/bin">
+<img src="img/bin.png">
 
 ---
 
@@ -136,7 +136,7 @@ docker create --name my_container_dmlorren hashicorp/terraform:latest
 docker cp 540cb6a28e112f1de87325310c6e82d15d43e7eb9dee7621fa9cadf9ec93b3aa:/bin/terraform /opt/
 ```
 
-<img src="img/docker_cp">
+<img src="img/docker_cp.png">
 
 ---
 

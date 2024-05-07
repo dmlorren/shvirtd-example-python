@@ -80,8 +80,8 @@ sudo docker compose -f compose.yaml -f proxy.yaml up -d
 <img src="img/yandex_docker2.png">
 
 ```
-В данном задании я столкнулся с проблемой перезапуска контейнеров web и db в виртуальной машине в yandex cloud.
-На stackoverflow и других ресурсах gbien, что проблема может заключаться в совместимости ubunty 20.04 и mysql:8 
+В данном задании я столкнулся с проблемой перезапуска контейнеров web и db в виртуальной машине yandex cloud.
+На stackoverflow и других ресурсах обозначили, что проблема может заключаться в совместимости ubunty 20.04 и mysql:8 
 Попробовал запустить с mariaDB - всё запустилось.
 ```
 <img src="img/docker_ps.png">

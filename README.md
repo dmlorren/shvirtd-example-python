@@ -50,7 +50,7 @@ root@ubuntu-2004:/home/dmlorren/docker# docker build -t my-app . -f /home/dmlorr
 
 <img src="img/docker_mysql.png">
 
-
+---
 
 ## Задача 4
 1. Запустите в Yandex Cloud ВМ (вам хватит 2 Гб Ram).
@@ -60,32 +60,85 @@ root@ubuntu-2004:/home/dmlorren/docker# docker build -t my-app . -f /home/dmlorr
 5. (Необязательная часть) Дополнительно настройте remote ssh context к вашему серверу. Отобразите список контекстов и результат удаленного выполнения ```docker ps -a```
 6. В качестве ответа повторите  sql-запрос и приложите скриншот с данного сервера, bash-скрипт и ссылку на fork-репозиторий.
 
-## Задача 5 (*)
-1. Напишите и задеплойте на вашу облачную ВМ bash скрипт, который произведет резервное копирование БД mysql в директорию "/opt/backup" с помощью запуска в сети "backend" контейнера из образа ```schnitzler/mysqldump``` при помощи ```docker run ...``` команды. Подсказка: "документация образа."
-2. Протестируйте ручной запуск
-3. Настройте выполнение скрипта раз в 1 минуту через cron, crontab или systemctl timer. Придумайте способ не светить логин/пароль в git!!
-4. Предоставьте скрипт, cron-task и скриншот с несколькими резервными копиями в "/opt/backup"
 
+## Решение задачи 4
+1. В облаке яндекса развёрнута vm ubunty 20.04
+2. Написан bash-скрипт:
+
+dmlorren@ubunty2004:~$ cat download_repo.sh 
+```bash
+#! /bin/bash
+
+cd /opt
+git clone https://github.com/dmlorren/shvirtd-example-python.git
+cd shvirtd-example-python/
+
+sudo docker compose -f compose.yaml -f proxy.yaml up -d
+```
+
+<img src="img/yandex_docker1">
+<img src="img/yandex_docker2">
+
+```
+В данном задании я столкнулся с проблемой перезапуска контейнеров web и db в виртуальной машине в yandex cloud.
+На stackoverflow и других ресурсах gbien, что проблема может заключаться в совместимости ubunty 20.04 и mysql:8 
+Попробовал запустить с mariaDB - всё запустилось.
+```
+<img src="img/docker_ps">
+<img src="img/check_host">
+<img src="img/mariadb">
+
+---
 
 ## Задача 6
 Скачайте docker образ ```hashicorp/terraform:latest``` и скопируйте бинарный файл ```/bin/terraform``` на свою локальную машину, используя dive и docker save.
 Предоставьте скриншоты  действий .
 
+
+## Решение задачи 6
+
+1. Ставим dive по инструкции из: https://github.com/wagoodman/dive
+```
+sudo snap install docker
+sudo snap install dive
+sudo snap connect dive:docker-executables docker:docker-executables
+sudo snap connect dive:docker-daemon docker:docker-daemon
+```
+
+2. Посмотрим слои образа через dive:
+```
+root@ubuntu-2004:/home/dmlorren/docker# dive hashicorp/terraform:latest
+```
+<img src="img/dive">
+
+
+3. Сохраняем докер образ на локальную машину с помощью docker save:
+```
+root@ubuntu-2004:/home/dmlorren/docker# docker save hashicorp/terraform:latest -o /opt/myapp.tar
+```
+
+4. Через mc захожу в архив, выбираю нужный слой и копирую к себе на локальную машину в директорию home.
+<img src="img/bin">
+
+---
+
 ## Задача 6.1
 Добейтесь аналогичного результата, используя docker cp.  
 Предоставьте скриншоты  действий .
 
-## Задача 6.2 (**)
-Предложите способ извлечь файл из контейнера, используя только команду docker build и любой Dockerfile.  
-Предоставьте скриншоты  действий .
+## Решение задачи 6.1
 
-## Задача 7 (***)
-Запустите ваше python-приложение с помощью runC, не используя docker или containerd.  
-Предоставьте скриншоты  действий .
+1. Нам в любом случае как минимум собрать контейнер на основе образа (не обязательно запускать) для проведение каких-либо операций с ним:
 
+Выполняем:
+```
+docker create --name my_container_dmlorren hashicorp/terraform:latest
+docker cp 540cb6a28e112f1de87325310c6e82d15d43e7eb9dee7621fa9cadf9ec93b3aa:/bin/terraform /opt/
+```
 
+<img src="img/docker_cp">
 
-
+---
 
 ### README.md по умолчанию
 
@@ -119,3 +172,5 @@ To exit venv just type ```deactivate```
 ## License
 
 This project is licensed under the MIT License (see the `LICENSE` file for details).
+
+---
